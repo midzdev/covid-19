@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: #141414;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table thead tr {
+  border: 1px solid #4b4b4b;
+}
+
+table thead tr th {
+  color: white;
+  font: 600 14px "Poppins";
+  padding: 8px 14px;
+  text-align: start;
+}
+
+table tbody tr {
+  border: 1px solid #232323;
+}
+
+table tbody tr td {
+  color: white;
+  font: 400 14px "Poppins";
+  padding: 4px 14px;
+}
+
+table tbody tr #cases span {
+  color: #37ff9b;
+}
+
+table tbody tr #deaths span {
+  color: #ff9b9b;
+}
+/*# sourceMappingURL=global.css.map */
