@@ -22,6 +22,7 @@ function compare(a, b) {
 
 export default function App({ data }) {
   const res = data.response.sort(compare);
+  console.log(res);
 
   return (
     <>
@@ -31,6 +32,9 @@ export default function App({ data }) {
             <th>Country</th>
             <th>Cases</th>
             <th>Deaths</th>
+            <th>Recovered</th>
+            <th>Active</th>
+            <th>Last Updated</th>
           </tr>
         </thead>
         <tbody>
@@ -52,11 +56,22 @@ export default function App({ data }) {
                     "0"}{" "}
                   <span>{total.deaths.new}</span>
                 </td>
+                <td>
+                  {total.cases.recovered
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+                <td>
+                  {total.cases.active
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
               </tr>
             );
           })}
           {res.map((country) => {
-            return country.country === "All" ? null : (
+            return country.country === "All" ||
+              country.time.substring(0, 4) == "2020" ? null : (
               <tr key={country.country}>
                 <td>{country.country}</td>
                 <td id="cases">
@@ -72,6 +87,23 @@ export default function App({ data }) {
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
                     "0"}{" "}
                   <span>{country.deaths.new}</span>
+                </td>
+                <td>
+                  {(country.cases.recovered &&
+                    country.cases.recovered
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
+                    "N/A"}
+                </td>
+                <td>
+                  {(country.cases.active &&
+                    country.cases.active
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
+                    "0"}
+                </td>
+                <td id="time">
+                  {country.time.substring(0, 16).replace("T", " ")}
                 </td>
               </tr>
             );
