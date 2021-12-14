@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export async function getServerSideProps() {
   const data = await fetch("https://covid-193.p.rapidapi.com/statistics", {
     method: "GET",
@@ -22,7 +20,6 @@ function compare(a, b) {
 
 export default function App({ data }) {
   const res = data.response.sort(compare);
-  console.log(res);
 
   return (
     <>
@@ -34,7 +31,6 @@ export default function App({ data }) {
             <th>Deaths</th>
             <th>Recovered</th>
             <th>Active</th>
-            <th>Last Updated</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +42,6 @@ export default function App({ data }) {
                   {total.cases.total
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  <span>{total.cases.new}</span>
                 </td>
                 <td id="deaths">
                   {(total.deaths.total &&
@@ -54,14 +49,13 @@ export default function App({ data }) {
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
                     "0"}{" "}
-                  <span>{total.deaths.new}</span>
                 </td>
-                <td>
+                <td id="recovered">
                   {total.cases.recovered
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
-                <td>
+                <td id="active">
                   {total.cases.active
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -88,22 +82,19 @@ export default function App({ data }) {
                     "0"}{" "}
                   <span>{country.deaths.new}</span>
                 </td>
-                <td>
+                <td id="recovered">
                   {(country.cases.recovered &&
                     country.cases.recovered
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
                     "N/A"}
                 </td>
-                <td>
+                <td id="active">
                   {(country.cases.active &&
                     country.cases.active
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
                     "0"}
-                </td>
-                <td id="time">
-                  {country.time.substring(0, 16).replace("T", " ")}
                 </td>
               </tr>
             );
