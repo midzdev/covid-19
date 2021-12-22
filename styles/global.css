@@ -1,8 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   text-decoration: none;
   color: inherit;
 }
@@ -15,17 +14,17 @@ table {
   border-collapse: collapse;
   margin: 0 auto;
   table-layout: auto;
-  width: 900px;
+  width: auto;
 }
 
 table thead tr {
-  border: 1px solid #4b4b4b;
+  border: 1px solid rgb(75, 75, 75);
 }
 
 table thead tr th {
   color: white;
   font: 600 14px "Poppins";
-  padding: 8px 14px;
+  padding: 8px 8px;
   text-align: start;
 }
 
@@ -37,7 +36,7 @@ table tbody tr td {
   color: white;
   font: 400 14px "Poppins";
   padding: 4px 0;
-  padding-left: 14px;
+  padding-left: 8px;
 }
 
 table tbody tr #cases span {
@@ -55,4 +54,3 @@ table tbody tr #recovered {
 table tbody tr #active {
   color: #ff9b9b;
 }
-/*# sourceMappingURL=global.css.map */

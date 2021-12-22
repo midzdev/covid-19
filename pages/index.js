@@ -12,14 +12,20 @@ export async function getServerSideProps() {
   return { props: { data: res } };
 }
 
-function compare(a, b) {
-  if (a.country < b.country) return -1;
-  if (a.country > b.country) return 1;
-  return 0;
-}
-
 export default function App({ data }) {
-  const res = data.response.sort(compare);
+  const res = data.response.sort((a, b) => {
+    if (a.country < b.country) return -1;
+    if (a.country > b.country) return 1;
+    return 0;
+  });
+
+  function final(x) {
+    try {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } catch {
+      return;
+    }
+  }
 
   return (
     <>
@@ -34,67 +40,24 @@ export default function App({ data }) {
           </tr>
         </thead>
         <tbody>
-          {res.map((total) => {
-            return total.country !== "All" ? null : (
-              <tr key="Total">
-                <td>Total</td>
-                <td id="cases">
-                  {total.cases.total
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                </td>
-                <td id="deaths">
-                  {(total.deaths.total &&
-                    total.deaths.total
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
-                    "0"}{" "}
-                </td>
-                <td id="recovered">
-                  {total.cases.recovered
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </td>
-                <td id="active">
-                  {total.cases.active
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </td>
-              </tr>
-            );
-          })}
           {res.map((country) => {
             return country.country === "All" ||
               country.time.substring(0, 4) == "2020" ? null : (
               <tr key={country.country}>
                 <td>{country.country}</td>
                 <td id="cases">
-                  {country.cases.total
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  <span>{country.cases.new}</span>
+                  {final(country.cases.total)}
+                  <span> {final(country.cases.new)}</span>
                 </td>
                 <td id="deaths">
-                  {(country.deaths.total &&
-                    country.deaths.total
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
-                    "0"}{" "}
-                  <span>{country.deaths.new}</span>
+                  {country.deaths.total && final(country.deaths.total)}
+                  <span> {final(country.deaths.new)}</span>
                 </td>
                 <td id="recovered">
-                  {(country.cases.recovered &&
-                    country.cases.recovered
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
-                    "N/A"}
+                  {country.cases.recovered && final(country.cases.recovered)}
                 </td>
                 <td id="active">
-                  {(country.cases.active &&
-                    country.cases.active
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")) ||
-                    "0"}
+                  {country.cases.active && final(country.cases.active)}
                 </td>
               </tr>
             );
