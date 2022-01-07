@@ -7,13 +7,14 @@
 }
 
 body {
-  background: white;
+  background: #141414;
 }
 
 table {
   border-collapse: collapse;
   margin: 0 auto;
   table-layout: auto;
+  width: 660px;
 }
 
 table thead tr {
@@ -21,41 +22,35 @@ table thead tr {
 }
 
 table thead tr th {
-  color: black;
+  color: white;
   font: 600 14px "Inter";
   padding: 8px 8px;
   text-align: start;
 }
 
+table tbody tr {
+  border: 1px solid #232323;
+}
+
 table tbody tr td {
-  border: 1px solid rgb(205, 205, 205);
-  color: black;
-  font: 400 16px "Inter";
+  color: white;
+  font: 400 14px "Inter";
   padding: 4px 0;
   padding-left: 8px;
-  width: 220px;
 }
-
 
 table tbody tr #cases span {
-  color: rgb(0, 155, 0);
+  color: #37ff9b;
 }
 
-table tbody tr #cases {
-  background: rgb(245,  255, 245);
-}
-
-table tbody tr #deaths {
-  background: rgb(255,  245, 245);
-}
 table tbody tr #deaths span {
-  color: rgb(255, 0, 0);
+  color: #ff9b9b;
 }
 
 table tbody tr #recovered {
-  color: rgb(0, 155, 0);
+  color: #37ff9b;
 }
 
 table tbody tr #active {
-  color: rgb(255, 0, 0);
+  color: #ff9b9b;
 }
