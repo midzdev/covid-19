@@ -9,7 +9,8 @@ export default function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         ></meta>
-        <title>TechQuid | Covid Data</title>
+        <link rel="shortcut icon" href="./image/favicon.ico" />
+        <title>Coronavirus Statistics - TechQuid</title>
       </Head>
       <Component {...pageProps} />
     </>
