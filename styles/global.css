@@ -41,10 +41,12 @@ table tbody tr td {
 
 table tbody tr #cases span {
   color: #37ff9b;
+  font-weight: 600;
 }
 
 table tbody tr #deaths span {
   color: #ff9b9b;
+  font-weight: 600;
 }
 
 table tbody tr #recovered {
