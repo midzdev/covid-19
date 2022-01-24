@@ -3,12 +3,11 @@ export async function getServerSideProps() {
     method: "GET",
     headers: {
       "x-rapidapi-host": "covid-193.p.rapidapi.com",
-      "x-rapidapi-key": "8f69039690mshb800b9adea48eb9p197941jsn5718e6fdd55a",
+      "x-rapidapi-key": process.env.KEY,
     },
   });
 
   const res = await data.json();
-
   return { props: { data: res } };
 }
 
@@ -41,8 +40,8 @@ export default function App({ data }) {
         </thead>
         <tbody>
           {res.map((country) => {
-            return country.country === "All" ||
-              country.time.substring(0, 4) == "2020" ? null : (
+            return country.country === country.continent || 
+            country.time.substring(0, 4) == "2021" ? null : (
               <tr key={country.country}>
                 <td>{country.country}</td>
                 <td id="cases">
