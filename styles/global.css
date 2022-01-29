@@ -1,13 +1,14 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   text-decoration: none;
   color: inherit;
 }
 
 body {
-  background: rgb(20, 20, 20);
+  background: #141414;
 }
 
 table {
@@ -18,29 +19,30 @@ table {
 }
 
 table thead tr {
-  border: 1px solid rgb(75, 75, 75);
+  background: white;
 }
 
 table thead tr th {
-  color: white;
+  color: black;
   font: 600 14px "Inter";
-  padding: 8px 8px;
+  padding: 8px 12px;
   text-align: start;
 }
 
 table tbody tr {
-  border: 1px solid #232323;
-}
-
-table tbody tr td {
-  color: white;
-  font: 400 14px "Inter";
-  padding: 4px 0;
-  padding-left: 8px;
+  border: 1px solid #1e1e1e;
 }
 
 table tbody tr:nth-child(2n + 1) {
-  background: rgb(24, 24, 24);
+  background: #1e1e1e;
+}
+
+table tbody tr #recovered {
+  color: #37ff9b;
+}
+
+table tbody tr #active {
+  color: #ff9b9b;
 }
 
 table tbody tr #cases span {
@@ -53,10 +55,10 @@ table tbody tr #deaths span {
   font-weight: 600;
 }
 
-table tbody tr #recovered {
-  color: #37ff9b;
+table tbody tr td {
+  color: white;
+  font: 400 14px "Inter";
+  padding: 6px 0;
+  padding-left: 12px;
 }
-
-table tbody tr #active {
-  color: #ff9b9b;
-}
+/*# sourceMappingURL=global.css.map */
