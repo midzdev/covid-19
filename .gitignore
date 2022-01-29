@@ -1,7 +1,4 @@
 .next
 node_modules
-styles/global.scss
-styles/global.css.map
-//
 
 .env.local
