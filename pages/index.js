@@ -1,3 +1,6 @@
+import _ from "lodash"
+import { useState } from "react";
+
 export async function getServerSideProps() {
   const data = await fetch("https://covid-193.p.rapidapi.com/statistics", {
     method: "GET",
@@ -12,11 +15,7 @@ export async function getServerSideProps() {
 }
 
 export default function App({ data }) {
-  const res = data.response.sort((a, b) => {
-    if (a.country < b.country) return -1;
-    if (a.country > b.country) return 1;
-    return 0;
-  });
+  const [filter, setFilter] = useState("country")
 
   function final(x) {
     try {
@@ -26,8 +25,34 @@ export default function App({ data }) {
     }
   }
 
+
+  switch (filter) {
+    case "cases":
+      data = _.orderBy(data.response, ["cases.total"], ["desc"]);
+      break;
+    case "deaths":
+      data = _.orderBy(data.response, ["deaths.total"], ["desc"]);
+      break;
+    case "recovered":
+      data = _.orderBy(data.response, ["cases.recovered"], ["desc"]);
+      break;
+    case "active":
+      data = _.orderBy(data.response, ["cases.active"], ["desc"]);
+      break;
+    default:
+      data = _.sortBy(data.response, ["country"]);
+      break;
+  }
+
   return (
     <>
+      <select name="sort" onChange={({ target }) => setFilter(target.value)} value={filter}>
+        <option value="country">Country</option>
+        <option value="cases">Total Cases</option>
+        <option value="deaths">Total Deaths</option>
+        <option value="recovered">Total Recovered</option>
+        <option value="active">Active Cases</option>
+      </select>
       <table>
         <thead>
           <tr>
@@ -39,8 +64,8 @@ export default function App({ data }) {
           </tr>
         </thead>
         <tbody>
-          {res.map((country) => {
-            return country.country === country.continent || 
+          {data.map((country) => {
+            return country.country === country.continent || country.deaths.total <= 10 ||
             country.time.substring(0, 4) == "2021" ? null : (
               <tr key={country.country}>
                 <td>{country.country}</td>
