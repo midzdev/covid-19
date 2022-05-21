@@ -47,24 +47,24 @@ export default function App({ data }) {
                 <tr
                   key={country}
                   className="border-b bg-neutral-800 text-neutral-300 border-neutral-700 text-sm">
-                  <td className="px-4 py-2 text-white whitespace-nowrap font-[Inter]">
+                  <td className="px-4 py-2 text-white whitespace-nowrap font-[Inter] font-semibold">
                     {country}
                   </td>
-                  <td className="px-4 py-2 font-['Fira_code']">
+                  <td className="px-4 py-2 font-['Fira_Code']">
                     {final(cases.total)}
                     <span className="text-emerald-400">
                       {' '}
                       {final(cases.new)}
                     </span>
                   </td>
-                  <td className="px-4 py-2 font-['Fira_code']">
+                  <td className="px-4 py-2 font-['Fira_Code']">
                     {deaths.total && final(deaths.total)}
                     <span className="text-rose-400"> {final(deaths.new)}</span>
                   </td>
-                  <td className="px-4 py-2 font-['Fira_code']">
+                  <td className="px-4 py-2 font-['Fira_Code']">
                     {cases.recovered && final(cases.recovered)}
                   </td>
-                  <td className="px-4 py-2 font-['Fira_code']">
+                  <td className="px-4 py-2 font-['Fira_Code']">
                     {cases.active && final(cases.active)}
                   </td>
                 </tr>
