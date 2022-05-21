@@ -1,72 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  text-decoration: none;
-  color: inherit;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  background: #141414;
+  @apply bg-neutral-900;
 }
-
-table {
-  border-collapse: collapse;
-  margin: 0 auto;
-  table-layout: auto;
-  width: 660px;
-}
-
-table thead tr {
-  background: white;
-}
-
-table thead tr th {
-  color: black;
-  font: 600 14px "Inter";
-  padding: 8px 12px;
-  text-align: start;
-}
-
-table tbody tr {
-  border: 1px solid #1e1e1e;
-}
-
-table tbody tr:nth-child(2n + 1) {
-  background: #1e1e1e;
-}
-
-table tbody tr #recovered {
-  color: #37ff9b;
-}
-
-table tbody tr #active {
-  color: #ff9b9b;
-}
-
-table tbody tr #cases span {
-  color: #37ff9b;
-  font-weight: 600;
-}
-
-table tbody tr #deaths span {
-  color: #ff9b9b;
-  font-weight: 600;
-}
-
-table tbody tr td {
-  color: white;
-  font: 400 14px "Inter";
-  padding: 6px 0;
-  padding-left: 12px;
-}
-
-select {
-  font: 400 14px "Inter";
-}
-
-select option {
-  padding: 14px;
-}
-/*# sourceMappingURL=global.css.map */

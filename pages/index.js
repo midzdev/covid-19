@@ -1,12 +1,12 @@
-import _ from "lodash"
-import { useState } from "react";
+import _ from 'lodash';
+import { useState } from 'react';
 
 export async function getServerSideProps() {
-  const data = await fetch("https://covid-193.p.rapidapi.com/statistics", {
-    method: "GET",
+  const data = await fetch('https://covid-193.p.rapidapi.com/statistics', {
+    method: 'GET',
     headers: {
-      "x-rapidapi-host": "covid-193.p.rapidapi.com",
-      "x-rapidapi-key": process.env.KEY,
+      'x-rapidapi-host': 'covid-193.p.rapidapi.com',
+      'x-rapidapi-key': process.env.KEY,
     },
   });
 
@@ -15,79 +15,64 @@ export async function getServerSideProps() {
 }
 
 export default function App({ data }) {
-  const [filter, setFilter] = useState("country")
-
   function final(x) {
     try {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     } catch {
       return;
     }
   }
 
-
-  switch (filter) {
-    case "cases":
-      data = _.orderBy(data.response, ["cases.total"], ["desc"]);
-      break;
-    case "deaths":
-      data = _.orderBy(data.response, ["deaths.total"], ["desc"]);
-      break;
-    case "recovered":
-      data = _.orderBy(data.response, ["cases.recovered"], ["desc"]);
-      break;
-    case "active":
-      data = _.orderBy(data.response, ["cases.active"], ["desc"]);
-      break;
-    default:
-      data = _.sortBy(data.response, ["country"]);
-      break;
-  }
+  data = _.sortBy(data.response, ['country']);
 
   return (
     <>
-      <select name="sort" onChange={({ target }) => setFilter(target.value)} value={filter}>
-        <option value="country">Country</option>
-        <option value="cases">Total Cases</option>
-        <option value="deaths">Total Deaths</option>
-        <option value="recovered">Total Recovered</option>
-        <option value="active">Active Cases</option>
-      </select>
-      <table>
-        <thead>
-          <tr>
-            <th>Country</th>
-            <th>Cases</th>
-            <th>Deaths</th>
-            <th>Recovered</th>
-            <th>Active</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((country) => {
-            return country.country === country.continent || country.deaths.total <= 10 ||
-            country.time.substring(0, 4) == "2021" ? null : (
-              <tr key={country.country}>
-                <td>{country.country}</td>
-                <td id="cases">
-                  {final(country.cases.total)}
-                  <span> {final(country.cases.new)}</span>
-                </td>
-                <td id="deaths">
-                  {country.deaths.total && final(country.deaths.total)}
-                  <span> {final(country.deaths.new)}</span>
-                </td>
-                <td id="recovered">
-                  {country.cases.recovered && final(country.cases.recovered)}
-                </td>
-                <td id="active">
-                  {country.cases.active && final(country.cases.active)}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto shadow-md rounded-lg w-[97.5%] lg:w-[1000px] mx-auto my-4">
+        <table className="w-full text-sm text-left">
+          <thead className="text-xs uppercase bg-indigo-500 font-[Inter] font-semibold text-white">
+            <tr>
+              <th className="px-4 py-2">Country</th>
+              <th className="px-4 py-2">Cases</th>
+              <th className="px-4 py-2">Deaths</th>
+              <th className="px-4 py-2">Recovered</th>
+              <th className="px-4 py-3">Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(({ country, deaths, continent, time, cases }) => {
+              return country === continent ||
+                deaths.total <= 10 ||
+                cases.recovered <= 10 ||
+                time.substring(0, 4) == '2021' ? null : (
+                <tr
+                  key={country}
+                  className="border-b bg-neutral-800 text-neutral-300 border-neutral-700 text-sm">
+                  <td className="px-4 py-2 text-white whitespace-nowrap font-[Inter]">
+                    {country}
+                  </td>
+                  <td className="px-4 py-2 font-['Fira_code']">
+                    {final(cases.total)}
+                    <span className="text-emerald-400">
+                      {' '}
+                      {final(cases.new)}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 font-['Fira_code']">
+                    {deaths.total && final(deaths.total)}
+                    <span className="text-rose-400"> {final(deaths.new)}</span>
+                  </td>
+                  <td className="px-4 py-2 font-['Fira_code']">
+                    {cases.recovered && final(cases.recovered)}
+                  </td>
+                  <td className="px-4 py-2 font-['Fira_code']">
+                    {cases.active && final(cases.active)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }
