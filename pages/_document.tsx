@@ -16,8 +16,10 @@ export default class extends Document {
             rel="stylesheet"
           />
         </Head>
-        <Main />
-        <NextScript />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
       </Html>
     );
   }
