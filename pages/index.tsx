@@ -27,7 +27,7 @@ export default function App({ data }) {
 
   return (
     <>
-      <div className="overflow-x-auto shadow-md rounded-lg w-[97.5%] lg:w-[1000px] mx-auto my-4">
+      <div className="overflow-x-auto shadow-md rounded-md w-[97.5%] lg:w-[1000px] mx-auto mt-4">
         <table className="w-full text-sm text-left">
           <thead className="text-xs uppercase bg-indigo-500 font-[Inter] font-semibold text-white">
             <tr>
@@ -52,14 +52,17 @@ export default function App({ data }) {
                   </td>
                   <td className="px-4 py-2 font-['Fira_Code']">
                     {final(cases.total)}
-                    <span className="text-emerald-400">
+                    <span className="text-emerald-400 font-semibold">
                       {' '}
                       {final(cases.new)}
                     </span>
                   </td>
                   <td className="px-4 py-2 font-['Fira_Code']">
                     {deaths.total && final(deaths.total)}
-                    <span className="text-rose-400"> {final(deaths.new)}</span>
+                    <span className="text-rose-400 font-semibold">
+                      {' '}
+                      {final(deaths.new)}
+                    </span>
                   </td>
                   <td className="px-4 py-2 font-['Fira_Code']">
                     {cases.recovered && final(cases.recovered)}
@@ -73,6 +76,9 @@ export default function App({ data }) {
           </tbody>
         </table>
       </div>
+      <footer className="font-[Inter] font-semibold text-white text-sm text-center py-6">
+        Copyright © {new Date().getFullYear()} MidzDev
+      </footer>
     </>
   );
 }
